@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         position: 'absolute',
         right: 20,
-        top: 650,
+        top: 530,
     },
     items: {
         flex: 1,
@@ -189,6 +189,6 @@ const styles = StyleSheet.create({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        top: 480, 
+        top: 390, 
     }
 })
