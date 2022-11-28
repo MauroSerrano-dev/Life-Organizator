@@ -6,6 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import IconFruits from './icons/apple-whole-solid.svg'
 import IconPlus from './icons/plus-svgrepo-com.svg'
 import IconSnackes from './icons/cookie-bite-solid.svg'
+import IconTrash from './icons/trash-can-solid.svg'
 
 export default function MarketScreen({ navigation }) {
     const [fruits, setFruits] = useState(getFruits())
@@ -14,13 +15,6 @@ export default function MarketScreen({ navigation }) {
     const [options, setOptions] = useState(getOptions())
     const [menu, setMenu] = useState('options')
     const [focus, setFocus] = useState()
-
-
-    /*     useEffect(() => {
-            console.log(menu)
-        }, [menu]);
-     */
-
 
     function handleAddPress() {
         setVisible(true)
@@ -38,11 +32,13 @@ export default function MarketScreen({ navigation }) {
     return (
         <View>
             <ScrollView>
-                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                <View style={styles.items}>
                     {bag.map((item, i) =>
                         <View key={`item ${i + 1}`} style={styles.item} >
-                            <Text>{item.name}</Text>
-                            <TouchableOpacity onPress={() => handleDeleteItem(i)} ><Text>DELETE</Text></TouchableOpacity>
+                            <Text style={styles.itemName}>{item.name}</Text>
+                            <TouchableOpacity onPress={() => handleDeleteItem(i)}>
+                                <IconTrash fill='#212121' width={23} height={23} />
+                            </TouchableOpacity>
                         </View>
                     )}
                 </View>
@@ -51,7 +47,7 @@ export default function MarketScreen({ navigation }) {
                 style={styles.addButton}
                 onPress={() => handleAddPress()}
             >
-                <IconPlus fill='red' width={40} height={40} />
+                <IconPlus fill='#1DA1F2' width={40} height={40} />
             </TouchableOpacity>
             <Modal transparent visible={visible}>
                 <SafeAreaView
@@ -113,7 +109,7 @@ export default function MarketScreen({ navigation }) {
                         </View>
                     }
                     {menu !== 'options' &&
-                        <TouchableOpacity onPress={() => handleAddToBag()}>
+                        <TouchableOpacity style={styles.addBag} onPress={() => handleAddToBag()}>
                             <Text>Add to bag</Text>
                         </TouchableOpacity>
                     }
@@ -130,13 +126,30 @@ const styles = StyleSheet.create({
         right: 20,
         top: 650,
     },
-    item: {
-        display: 'flex',
-        justifyContent: 'center',
+    items: {
+        flex: 1,
         alignItems: 'center',
-        height: 30,
-        width: '60%',
-        backgroundColor: 'green',
+        justifyContent: 'center',
+        marginTop: 10,
+    },
+    item: {
+        borderRadius: 8,
+        borderColor: '#333',
+        borderWidth: 1,
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        height: 50,
+        width: '80%',
+        backgroundColor: '#add8e6',
+        paddingHorizontal: 30,
+        position: 'relative',
+        marginVertical: 5,
+    },
+    itemName: {
+        fontSize: 25,
+        fontFamily: 'serif',
     },
     popUp: {
         borderRadius: 8,
@@ -150,6 +163,7 @@ const styles = StyleSheet.create({
         width: '80%',
         height: '80%',
         justifyContent: 'flex-start',
+        alignItems: 'center',
     },
     line: {
         flexDirection: 'row',
@@ -164,5 +178,17 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         borderColor: '#333',
         borderWidth: 1,
+    },
+    addBag:{
+        borderRadius: 8,
+        borderColor: '#333',
+        borderWidth: 1,
+        width: '70%',
+        height: 25,
+        backgroundColor: '#90ee90',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        top: 480, 
     }
 })
